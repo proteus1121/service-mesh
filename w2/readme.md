@@ -10,4 +10,5 @@ grafana books service:
 ![Image description | width=100](Screen%20Shot%202020-05-02%20at%207.46.32%20AM.png)
 grafana authors service:
 ![Image description | width=100](Screen%20Shot%202020-05-02%20at%207.46.59%20AM.png)
-
+jaeger:
+![Image description | width=100](Screen%20Shot%202020-05-02%20at%202.54.03%20PM.png)
