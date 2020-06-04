@@ -1,0 +1,49 @@
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: auth-policy
+  namespace: istio-system
+  labels:
+    project: istio-course
+spec:
+  selector:
+    matchLabels:
+      istio: ingressgateway
+  jwtRules:
+    - issuer: "https://aishchenko1.auth0.com/"
+      jwksUri: "https://aishchenko1.auth0.com/.well-known/jwks.json"
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: require-jwt
+  namespace: default
+  labels:
+    project: istio-course
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  action: ALLOW
+  rules:
+  - to:
+    - operation:
+        methods: ["GET"]
+        paths: ["/actuator/health*"]
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: productpage-viewer
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  rules:
+  - from:
+    - source:
+        principals: ["*"]
+  - to:
+    - operation:
+        methods: ["GET"]
